@@ -19,13 +19,14 @@ Laravel 12
 
 
 ## Аутентификация
-
+```
 curl -X POST http://localhost:8000/api/login \
   -H "Content-Type: application/json" \
   -d '{"email":"manager@test.ru","password":"password"}'
+```
 
 Ответ:
-
+```
 {
   "success": true,
   "token": "1|abcdefghijklmnopqrstuvwxyz123456",
@@ -36,9 +37,12 @@ curl -X POST http://localhost:8000/api/login \
     "position": "Менеджер"
   }
 }
+```
 
 Использование токена:
+```
 Authorization: Bearer {ваш_токен}
+```
 
 ## Тестовые данные
 
@@ -69,11 +73,14 @@ GET /api/available-cars — Доступные автомобили
 Возвращает список автомобилей, доступных для бронирования.
 
 Пример запроса:
+```
 curl -X GET "http://localhost:8000/api/available-cars?start_at=2025-01-20%2010:00:00&end_at=2025-01-20%2012:00:00" \
   -H "Authorization: Bearer {token}" \
   -H "Accept: application/json"
+  ```
 
 Успешный ответ (200 OK):
+```
 {
   "success": true,
   "data": [
@@ -98,6 +105,7 @@ curl -X GET "http://localhost:8000/api/available-cars?start_at=2025-01-20%2010:0
     "available_categories": [1, 2]
   }
 }
+```
 
 ##  Примеры использования
 
@@ -105,17 +113,21 @@ curl -X GET "http://localhost:8000/api/available-cars?start_at=2025-01-20%2010:0
 
 bash
 Менеджер видит только автомобили категорий 1 и 2
+```
 curl -X GET "http://localhost:8000/api/available-cars?start_at=2025-01-21%2014:00:00&end_at=2025-01-21%2016:00:00" \
   -H "Authorization: Bearer {token_менеджера}"
+```
 
 Пример 2: Фильтр по уровню комфорта
 bash
+```
 Только автомобили Комфорт-класса (уровень 2)
 curl -X GET "http://localhost:8000/api/available-cars?start_at=2025-01-21%2014:00:00&end_at=2025-01-21%2016:00:00&comfort_level=2" \
   -H "Authorization: Bearer {token_менеджера}"
+```
 
 ## Архитектура
-
+```
 app/
 ├── Http/
 │   ├── Controllers/Api/
@@ -135,14 +147,15 @@ app/
 │   └── Trip.php                        # Поездки
 └── Services/
     └── CarAvailabilityService.php      # Бизнес-логика
+```
 
 ## Логика работы
 
-# Проверка доступа
+Проверка доступа
 Менеджер может использовать только авто категорий 1 и 2
 Директор может использовать все категории (1-4)
 
-# Проверка занятости
+Проверка занятости
 Автомобиль считается занятым, если имеет поездку, которая:
 Начинается в запрашиваемом периоде
 Заканчивается в запрашиваемом периоде
