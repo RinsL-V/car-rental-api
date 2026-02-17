@@ -111,7 +111,6 @@ curl -X GET "http://localhost:8000/api/available-cars?start_at=2025-01-20%2010:0
 
 Пример 1: Менеджер ищет все доступные авто
 
-bash
 Менеджер видит только автомобили категорий 1 и 2
 ```
 curl -X GET "http://localhost:8000/api/available-cars?start_at=2025-01-21%2014:00:00&end_at=2025-01-21%2016:00:00" \
@@ -119,7 +118,6 @@ curl -X GET "http://localhost:8000/api/available-cars?start_at=2025-01-21%2014:0
 ```
 
 Пример 2: Фильтр по уровню комфорта
-bash
 ```
 Только автомобили Комфорт-класса (уровень 2)
 curl -X GET "http://localhost:8000/api/available-cars?start_at=2025-01-21%2014:00:00&end_at=2025-01-21%2016:00:00&comfort_level=2" \
